@@ -1,18 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- import aframe and then ar.js with image tracking / location based features -->
+<script src="aframe-master.min.js"></script>
+<script src="aframe-ar-nft.js"></script>
+<script src="gestures.js"></script>
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
-    
 
-    <!-- 导入必要的js文件，为加快访问，已经下载到自己的服务器上 -->
-<script src="js/aframe-ar-nft.js"></script>
-<script src="js/aframe-master.min.js"></script>
-
-<!-- 页面的样式 -->
+<!-- style for the loader -->
 <style>
   .arjs-loader {
     height: 100%;
@@ -35,39 +30,23 @@
 </style>
 
 <body style="margin : 0px; overflow: hidden;">
-  <!-- 在加载图像描述符之前，将显示“正在加载”的页面。 根据设备的计算能力，加载可能需要一段时间 -->
+  <!-- minimal loader shown until image descriptors are loaded. Loading may take a while according to the device computational power -->
   <div class="arjs-loader">
-    <div>正在加载，请稍候...</div>
+    <div>正在加载AR模型,请稍候...</div>
   </div>
 
   <!-- a-frame scene -->
-  <a-scene
-    vr-mode-ui="enabled: false;"
-    renderer="logarithmicDepthBuffer: true;"
-    embedded
-    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
-  >
-    <!-- a-nft是定义图像跟踪实体的钩子-->
-    <!-- 在'url'属性中填写之前创建的“图像描述符”的路径 -->
-    <!-- 路径不带文件扩展名！【注意】以网站的域名为相对路径。 -->
-    <a-nft
-      type="nft"
-      url="resource/test"
-      smooth="true"
-      smoothCount="10"
-      smoothTolerance=".01"
-      smoothThreshold="5"
-    >
-        <!-- 这里设置用于显示在图片上的 GLTF 模型 -->
-        <a-entity
-            gltf-model="model/scene.gltf"
-            scale="5 5 5"
-            position="50 150 0"
-        >
-        </a-entity>
+  <a-scene vr-mode-ui="enabled: false;" gesture-detector renderer="logarithmicDepthBuffer: true;" embedded
+    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;">
+    <!-- 图片训练后文件路径，不带文件拓展名！ -->
+    <a-nft type="nft" url="resource/test" smooth="true" smoothCount="10" smoothTolerance=".01"
+      smoothThreshold="5">
+      <!-- 展示模型的路径 -->
+      <a-entity gltf-model="model/scene.gltf" scale="50 50 50"
+        gesture-handler="minScale: 0.25; maxScale: 10" position="100 0 -200" rotation="-90 0 0">
+      </a-entity>
     </a-nft>
-    <!-- 根据设备移动而移动的静态摄像机 -->
-    <a-entity camera></a-entity>
+    <!-- static camera that moves according to the device movemenents -->
+    <a-entity camera="fov: 190"></a-entity>
   </a-scene>
 </body>
-</html>
