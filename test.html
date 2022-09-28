@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+    
+
+    <!-- 导入必要的js文件，为加快访问，已经下载到自己的服务器上 -->
+<script src="https://ar.cnxfs.com.cn/aframe-master.min.js"></script>
+<script src="https://ar.cnxfs.com.cn/aframe-ar-nft.js"></script>
+
+<!-- 页面的样式 -->
+<style>
+  .arjs-loader {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .arjs-loader div {
+    text-align: center;
+    font-size: 1.25em;
+    color: white;
+  }
+</style>
+
+<body style="margin : 0px; overflow: hidden;">
+  <!-- 在加载图像描述符之前，将显示“正在加载”的页面。 根据设备的计算能力，加载可能需要一段时间 -->
+  <div class="arjs-loader">
+    <div>正在加载，请稍候...</div>
+  </div>
+
+  <!-- a-frame scene -->
+  <a-scene
+    vr-mode-ui="enabled: false;"
+    renderer="logarithmicDepthBuffer: true;"
+    embedded
+    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
+  >
+    <!-- a-nft是定义图像跟踪实体的钩子-->
+    <!-- 在'url'属性中填写之前创建的“图像描述符”的路径 -->
+    <!-- 路径不带文件扩展名！【注意】以网站的域名为相对路径。 -->
+    <a-nft
+      type="nft"
+      url="./resource/test"
+      smooth="true"
+      smoothCount="10"
+      smoothTolerance=".01"
+      smoothThreshold="5"
+    >
+        <!-- 这里设置用于显示在图片上的 GLTF 模型 -->
+        <a-entity
+            gltf-model="./resource/test.png"
+            scale="5 5 5"
+            position="50 150 0"
+        >
+        </a-entity>
+    </a-nft>
+    <!-- 根据设备移动而移动的静态摄像机 -->
+    <a-entity camera></a-entity>
+  </a-scene>
+</body>
+</html>
